@@ -12,13 +12,15 @@ pipeline {
         }
         stage('Build') {
             steps {
-                //docker.withRegistry("${REGISTRY}", 'credentials-id') {
-                docker.withRegistry("${REGISTRY}") {
-                    sh "docker image build --no-cache --pull --build-arg REGISTRY=${REGISTRY} --tag ${IMAGE_NAME}:${BUILD_NUMBER} ."
-                    sh "docker image tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
+                script {
+                    //docker.withRegistry("${REGISTRY}", 'credentials-id') {
+                    docker.withRegistry("${REGISTRY}") {
+                        sh "docker image build --no-cache --pull --build-arg REGISTRY=${REGISTRY} --tag ${IMAGE_NAME}:${BUILD_NUMBER} ."
+                        sh "docker image tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
 
-                    docker.image("${IMAGE_NAME}:latest").push()
-                    docker.image("${IMAGE_NAME}:${BUILD_NUMBER}").push()
+                        docker.image("${IMAGE_NAME}:latest").push()
+                        docker.image("${IMAGE_NAME}:${BUILD_NUMBER}").push()
+                    }
                 }
             }
         }
