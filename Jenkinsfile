@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = 'iam/shibboleth-idp'
     }
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
                 checkout scm
             }
