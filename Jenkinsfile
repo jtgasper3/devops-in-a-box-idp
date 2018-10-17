@@ -15,8 +15,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    //docker.withRegistry("${REGISTRY}", 'credentials-id') {
-                    docker.withRegistry("${REGISTRY}") {
+                    //docker.withRegistry("https://${REGISTRY}", 'credentials-id') {
+                    docker.withRegistry("https://${REGISTRY}") {
                         sh "docker image build --no-cache --pull --build-arg REGISTRY=${REGISTRY} --tag ${IMAGE_NAME}:${BUILD_NUMBER} ."
                         sh "docker image tag ${IMAGE_NAME}:${BUILD_NUMBER} ${IMAGE_NAME}:latest"
 
