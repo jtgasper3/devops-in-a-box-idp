@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent { 
+        label 'docker'
+    }
     environment {
         REGISTRY = '10.211.56.10'
         IMAGE_NAME = 'iam/shibboleth-idp'
