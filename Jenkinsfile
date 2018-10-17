@@ -32,8 +32,15 @@ pipeline {
             }
         }
         stage('Deploy') {
+            environment {
+                DOCKER_TLS_VERIFY = 1
+                DOCKER_HOST = 'tcp://iam-swarm-mngr-1.local:2376'
+            }
             steps {
-                echo 'Deploying....'
+                withCredentials([dockerCert(credentialsId: 'iam-swarm',
+                        variable: 'DOCKER_CERT_PATH')]) {
+                    sh "docker service update --with-registry-auth --image ${REGISTRY}/${IMAGE}:${env.BUILD_NUMBER} idp"
+                }
             }
         }
     }
