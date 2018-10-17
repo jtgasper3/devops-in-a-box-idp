@@ -3,7 +3,7 @@ pipeline {
         label 'docker'
     }
     environment {
-        REGISTRY = '10.211.56.10'
+        REGISTRY = 'admin-swarm.local'
         IMAGE_NAME = 'iam/shibboleth-idp'
     }
     stages {
