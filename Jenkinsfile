@@ -39,7 +39,7 @@ pipeline {
             steps {
                 withCredentials([dockerCert(credentialsId: 'iam-swarm',
                         variable: 'DOCKER_CERT_PATH')]) {
-                    sh "docker service update --with-registry-auth --image ${REGISTRY}/${IMAGE_NAME}:${env.BUILD_NUMBER} idp"
+                    sh "docker service update --image ${REGISTRY}/${IMAGE_NAME}:${env.BUILD_NUMBER} idp"
                 }
             }
         }
